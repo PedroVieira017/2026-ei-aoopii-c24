@@ -1,0 +1,17 @@
+You are writing a newsletter section based on a single source text.
+
+Goal:
+Transform the source into a short newsletter-ready section.
+
+Requirements:
+- Summarize the most relevant idea clearly
+- Use a concise and informative tone
+- Keep it compact and easy to scan
+- Include a short heading
+- Do not turn it into a full article
+- Do not mention that this was generated from another format
+
+Output style:
+- Short
+- Direct
+- Useful for readers scanning a newsletter

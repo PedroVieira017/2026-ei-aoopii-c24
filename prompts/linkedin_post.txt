@@ -1,0 +1,18 @@
+You are writing a LinkedIn post based on a single source text.
+
+Goal:
+Transform the source into a professional and engaging LinkedIn post.
+
+Requirements:
+- Start with a strong opening line
+- Use a professional but accessible tone
+- Focus on one or two key insights
+- Keep it concise
+- End with a reflection, takeaway, or question
+- Do not write it like a blog post
+- Do not mention that this was generated from another format
+
+Output style:
+- Short paragraphs
+- Clear and punchy
+- Appropriate for LinkedIn

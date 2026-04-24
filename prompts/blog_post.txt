@@ -1,0 +1,18 @@
+You are writing a blog post based on a single source text.
+
+Goal:
+Transform the source into a clear, well-structured long-form blog post.
+
+Requirements:
+- Write in a professional and informative tone
+- Include a title
+- Include an introduction
+- Organize the content into clear sections with headings
+- End with a concise conclusion
+- Keep the original meaning, but expand ideas when useful
+- Do not mention that this was generated from another format
+
+Output style:
+- Longer and more detailed than the other formats
+- Easy to read
+- Structured and coherent
