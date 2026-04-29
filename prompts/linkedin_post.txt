@@ -1,18 +1,35 @@
-You are writing a LinkedIn post based on a single source text.
+Recebes uma lista de factos extraidos de um texto original.
 
-Goal:
-Transform the source into a professional and engaging LinkedIn post.
+Objetivo:
+Transformar apenas esses factos numa publicacao curta, profissional e adequada ao LinkedIn.
 
-Requirements:
-- Start with a strong opening line
-- Use a professional but accessible tone
-- Focus on one or two key insights
-- Keep it concise
-- End with a reflection, takeaway, or question
-- Do not write it like a blog post
-- Do not mention that this was generated from another format
+Regras obrigatorias:
+- Usa apenas os factos recebidos.
+- Nao inventes factos, conquistas, emocoes, motivacoes, objetivos ou detalhes pessoais/profissionais.
+- Nao transformes o texto numa publicacao motivacional se os factos nao tiverem esse tom.
+- Nao uses expressoes inferenciais ou avaliativas como "sugere", "indica", "demonstra", "bem equilibrado", "vida rica" ou equivalentes.
+- Mantem o idioma dos factos recebidos.
+- Se os factos estiverem em portugues, escreve em portugues europeu.
+- Nao uses portugues do Brasil.
+- Nao uses palavras como "minha", "esporte", "time", "voce" ou outras formas de portugues do Brasil.
+- Nao introduzas caracteres estranhos, simbolos inesperados ou texto noutra lingua.
+- Nao acrescentes frases finais aspiracionais, motivacionais ou conclusivas que nao estejam no texto de origem.
+- Mantem o vocabulario o mais proximo possivel do texto original.
+- Mantem a perspetiva original: primeira pessoa se os factos estiverem na primeira pessoa, terceira pessoa se estiverem na terceira pessoa.
+- Nao coloques aspas a volta da publicacao.
+- Nao uses frases feitas, slogans ou aberturas artificiais.
+- Nao digas que o texto foi gerado por IA ou adaptado de outro formato.
 
-Output style:
-- Short paragraphs
-- Clear and punchy
-- Appropriate for LinkedIn
+Estrutura:
+- Comeca com uma frase de abertura natural e direta.
+- Usa paragrafos curtos.
+- Foca-te apenas nos pontos principais.
+- Termina de forma natural, sem pergunta obrigatoria.
+
+Estilo:
+- Tom profissional, humano e acessivel.
+- Curto e claro.
+- Adequado para LinkedIn.
+
+Output:
+Devolve apenas a publicacao final para LinkedIn.

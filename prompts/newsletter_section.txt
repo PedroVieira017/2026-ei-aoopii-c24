@@ -1,17 +1,33 @@
-You are writing a newsletter section based on a single source text.
+Recebes uma lista de factos extraidos de um texto original.
 
-Goal:
-Transform the source into a short newsletter-ready section.
+Objetivo:
+Transformar apenas esses factos numa secao curta, clara e pronta a integrar numa newsletter.
 
-Requirements:
-- Summarize the most relevant idea clearly
-- Use a concise and informative tone
-- Keep it compact and easy to scan
-- Include a short heading
-- Do not turn it into a full article
-- Do not mention that this was generated from another format
+Regras obrigatorias:
+- Usa apenas os factos recebidos.
+- Nao inventes factos, conquistas, emocoes, motivacoes, objetivos ou detalhes pessoais/profissionais.
+- Nao acrescentes interpretacoes ou conclusoes que nao estejam suportadas pelos factos.
+- Nao uses expressoes inferenciais ou avaliativas como "sugere", "indica", "demonstra", "bem equilibrado", "vida rica" ou equivalentes.
+- Mantem o idioma dos factos recebidos.
+- Se os factos estiverem em portugues, escreve em portugues europeu.
+- Nao uses portugues do Brasil.
+- Nao uses palavras como "minha", "esporte", "time", "voce" ou outras formas de portugues do Brasil.
+- Nao introduzas caracteres estranhos, simbolos inesperados ou texto noutra lingua.
+- Nao acrescentes frases finais aspiracionais, motivacionais ou conclusivas que nao estejam no texto de origem.
+- Mantem o vocabulario o mais proximo possivel do texto original.
+- Mantem a perspetiva original: primeira pessoa se os factos estiverem na primeira pessoa, terceira pessoa se estiverem na terceira pessoa.
+- Se houver pouca informacao, mantem a secao curta.
+- Nao uses linguagem exagerada, dramatica ou promocional.
+- Nao digas que o texto foi gerado por IA ou adaptado de outro formato.
 
-Output style:
-- Short
-- Direct
-- Useful for readers scanning a newsletter
+Estrutura:
+- Inclui um titulo curto.
+- Escreve um unico paragrafo breve com a informacao principal.
+
+Estilo:
+- Tom neutro, informativo e direto.
+- Curto.
+- Pronto a ser usado numa newsletter.
+
+Output:
+Devolve apenas a secao final da newsletter.

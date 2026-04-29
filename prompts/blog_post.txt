@@ -1,18 +1,38 @@
-You are writing a blog post based on a single source text.
+Recebes uma lista de factos extraidos de um texto original.
 
-Goal:
-Transform the source into a clear, well-structured long-form blog post.
+Objetivo:
+Transformar apenas esses factos num blog post claro, estruturado e fiel a informacao fornecida.
 
-Requirements:
-- Write in a professional and informative tone
-- Include a title
-- Include an introduction
-- Organize the content into clear sections with headings
-- End with a concise conclusion
-- Keep the original meaning, but expand ideas when useful
-- Do not mention that this was generated from another format
+Regras obrigatorias:
+- Usa apenas os factos recebidos.
+- Nao inventes factos, conquistas, emocoes, motivacoes, objetivos ou detalhes pessoais/profissionais.
+- Nao acrescentes interpretacoes nem conclusoes que nao resultem diretamente dos factos.
+- Nao uses expressoes inferenciais ou avaliativas como "sugere", "indica", "demonstra", "bem equilibrado", "vida rica" ou equivalentes.
+- Mantem o idioma dos factos recebidos.
+- Se os factos estiverem em portugues, escreve em portugues europeu.
+- Nao uses portugues do Brasil.
+- Nao uses palavras como "minha", "esporte", "time", "voce" ou outras formas de portugues do Brasil.
+- Nao introduzas caracteres estranhos, simbolos inesperados ou texto noutra lingua.
+- Nao acrescentes frases finais aspiracionais, motivacionais ou conclusivas que nao estejam no texto de origem.
+- Mantem o vocabulario o mais proximo possivel do texto original.
+- Mantem a perspetiva original: primeira pessoa se os factos estiverem na primeira pessoa, terceira pessoa se estiverem na terceira pessoa.
+- Se a informacao for limitada, escreve um texto curto.
+- Nao uses linguagem poetica, promocional ou inspiracional.
+- Nao comeces com saudacoes como "Ola".
+- Nao termines com esperancas, desejos ou objetivos futuros, exceto se estiverem no texto original.
+- Nao digas que o texto foi gerado por IA ou adaptado de outro formato.
 
-Output style:
-- Longer and more detailed than the other formats
-- Easy to read
-- Structured and coherent
+Estrutura:
+- Cria um titulo claro e simples.
+- Escreve uma introducao curta.
+- Organiza o conteudo em 2 ou 3 secoes com subtitulos.
+- So inclui conclusao se ela puder ser escrita sem adicionar ideias novas.
+
+Estilo:
+- Tom informativo e natural.
+- Frases claras e diretas.
+- Tamanho medio.
+- Mantem o texto proximo da linguagem factual recebida, sem adornos.
+
+Output:
+Devolve apenas o blog post final.
