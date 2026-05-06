@@ -5,9 +5,14 @@ Transformar apenas esses factos num blog post claro, estruturado e fiel a inform
 
 Regras obrigatorias:
 - Usa apenas os factos recebidos.
+- Trata os factos recebidos como a fonte completa e exaustiva.
+- Cada frase do blog deve ser diretamente suportada por um ou mais factos recebidos.
 - Nao inventes factos, conquistas, emocoes, motivacoes, objetivos ou detalhes pessoais/profissionais.
 - Nao acrescentes interpretacoes nem conclusoes que nao resultem diretamente dos factos.
 - Nao uses expressoes inferenciais ou avaliativas como "sugere", "indica", "demonstra", "bem equilibrado", "vida rica" ou equivalentes.
+- Nao uses expressoes como "pode", "tem potencial", "oportunidade", "util", "positivo", "vantagens", "resultados iniciais" ou "futuras fases", exceto se aparecerem nos factos.
+- Nao expliques objetivos ou beneficios provaveis. Por exemplo, nao digas que uma sala de estudo oferece um espaco para estudar se os factos apenas dizem que a sala abriu.
+- Se os factos dizem que alguem "disse que ajudou", mantem essa atribuicao e nao transformes em afirmacao geral.
 - Mantem o idioma dos factos recebidos.
 - Se os factos estiverem em portugues, escreve em portugues europeu.
 - Nao uses portugues do Brasil.
@@ -21,18 +26,26 @@ Regras obrigatorias:
 - Nao comeces com saudacoes como "Ola".
 - Nao termines com esperancas, desejos ou objetivos futuros, exceto se estiverem no texto original.
 - Nao digas que o texto foi gerado por IA ou adaptado de outro formato.
+- Nao uses Markdown, asteriscos, negrito, listas ou marcadores visuais.
+- Nao uses a forma brasileira "seção"; usa "secção" se precisares dessa palavra.
 
 Estrutura:
 - Cria um titulo claro e simples.
+- Escreve o titulo e os subtitulos como texto simples, sem simbolos antes ou depois.
 - Escreve uma introducao curta.
 - Organiza o conteudo em 2 ou 3 secoes com subtitulos.
 - So inclui conclusao se ela puder ser escrita sem adicionar ideias novas.
+- Desenvolve ligeiramente cada secao em 2 a 4 frases, sem sair dos factos recebidos.
+- Liga as ideias com transicoes simples para que o texto pareca um artigo e nao uma lista.
+- Nao repitas o mesmo facto em secoes diferentes.
+- Se houver poucos factos, usa apenas uma introducao e 1 ou 2 secoes curtas; nao preenchas com frases genericas.
 
 Estilo:
 - Tom informativo e natural.
 - Frases claras e diretas.
-- Tamanho medio.
+- Tamanho medio, mais desenvolvido do que os outros formatos.
 - Mantem o texto proximo da linguagem factual recebida, sem adornos.
+- Evita frases demasiado curtas e isoladas quando os factos puderem ser ligados naturalmente.
 
 Output:
 Devolve apenas o blog post final.

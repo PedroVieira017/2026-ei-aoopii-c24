@@ -1,22 +1,49 @@
-Recebes dois blocos:
-1. FACTOS: uma lista de factos explicitamente presentes no texto original.
-2. RASCUNHO: um texto gerado a partir desses factos.
+Recebes tres blocos:
+1. FORMATO: o formato final pretendido.
+2. FACTOS: uma lista de factos explicitamente presentes no texto original.
+3. RASCUNHO: um texto gerado a partir desses factos.
 
 Objetivo:
-Reescrever o RASCUNHO apenas quando necessario para o tornar totalmente fiel aos FACTOS.
+Reescrever o RASCUNHO para o tornar totalmente fiel aos FACTOS.
 
 Regras obrigatorias:
 - Usa apenas os factos presentes no bloco FACTOS.
+- Trata os FACTOS como a fonte completa e exaustiva.
+- Cada frase da versao final deve estar diretamente suportada por um ou mais factos.
 - Remove qualquer detalhe, interpretacao, inferencia, exagero ou conclusao que nao esteja explicitamente suportado pelos FACTOS.
+- Remove sentimentos, agradecimentos, orgulho, felicidade, generosidade, beneficios, objetivos, impacto, potencial, vantagens, resultados iniciais, oportunidades ou planos futuros se nao estiverem explicitamente nos FACTOS.
+- Remove frases como "pode ajudar", "tem potencial", "oferece um espaco", "disponivel para uso", "sera explorado", "foi criado para ajudar" ou equivalentes, exceto quando esse sentido estiver literalmente nos FACTOS.
+- Se os FACTOS dizem que alguem "disse que ajudou", preserva essa atribuicao. Nao transformes em afirmacao geral de que algo ajuda.
 - Mantem o idioma dos FACTOS.
 - Se os FACTOS estiverem em portugues, escreve em portugues europeu.
 - Nao uses portugues do Brasil.
 - Corrige palavras como "esporte", "time", "voce", "minha" e outras formas de portugues do Brasil quando forem inadequadas ao contexto.
+- Corrige a forma brasileira "seção" para "secção".
 - Nao introduzas caracteres estranhos, simbolos inesperados ou texto noutra lingua.
 - Mantem a perspetiva original dos FACTOS.
-- Mantem o formato do RASCUNHO: se for blog post, continua a ser blog post; se for publicacao, continua a ser publicacao; se for secao de newsletter, continua a ser secao de newsletter.
+- Mantem o formato indicado no bloco FORMATO, mesmo que o RASCUNHO esteja demasiado longo ou pouco ajustado.
+- Se o bloco FORMATO indicar "blog", devolve um blog post.
+- Se o bloco FORMATO indicar "linkedin", devolve uma publicacao curta para LinkedIn.
+- Se o bloco FORMATO indicar "tweet_thread", devolve uma tweet thread curta e numerada.
+- Se o bloco FORMATO indicar "newsletter", devolve uma secao curta de newsletter.
+- Preserva a diferenca de formato: blog post mais desenvolvido, publicacao LinkedIn curta em varios paragrafos, tweet thread em linhas numeradas, newsletter muito sintetica.
 - Mantem o texto simples, factual e proximo do vocabulario dos FACTOS.
+- Prefere uma versao mais curta a uma versao com frases genericas.
+- Remove repeticoes e reformulacoes redundantes do mesmo facto.
+- No formato LinkedIn, cada facto principal deve aparecer apenas uma vez.
+- No formato tweet_thread, cria 3 a 6 tweets, um por linha, numerados no formato 1/n, 2/n, 3/n, etc.
+- No formato tweet_thread, cada tweet deve ter no maximo 280 caracteres.
+- No formato tweet_thread, usa um tom informal e envolvente, mas sem inventar factos, perguntas finais ou chamadas artificiais para interacao.
+- No formato newsletter, mantem um titulo curto e um paragrafo com no maximo 2 frases.
+- No formato newsletter, o paragrafo deve ter no maximo 60 palavras.
+- No formato newsletter, nao tentes incluir todos os factos; mantem apenas a ideia central e os factos essenciais.
+- No formato newsletter, se o paragrafo tiver mais de 2 frases, comprime-o para 1 ou 2 frases sem acrescentar informacao nova.
+- No formato newsletter, remove detalhes secundarios mesmo que estejam nos FACTOS quando forem desnecessarios para a ideia central.
+- Remove Markdown, asteriscos, negrito, listas ou marcadores visuais que aparecam no RASCUNHO.
+- Nao uses "garantir", "garante", "assegurar", "comprovar" ou equivalentes se esses verbos nao estiverem nos FACTOS.
+- Se os FACTOS dizem que algo "ajuda", mantem essa ideia como "ajuda"; nao a transformes numa garantia.
 - Nao acrescentes perguntas, reflexoes finais ou conclusoes inventadas.
+- Antes de responder, verifica frase a frase: se nao conseguires apontar o facto que suporta uma frase, remove essa frase.
 - Se o RASCUNHO ja estiver fiel aos FACTOS, devolve uma versao praticamente igual, apenas com correcao linguistica se necessario.
 
 Output:

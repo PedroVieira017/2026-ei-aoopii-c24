@@ -5,9 +5,13 @@ Transformar apenas esses factos numa secao curta, clara e pronta a integrar numa
 
 Regras obrigatorias:
 - Usa apenas os factos recebidos.
+- Trata os factos recebidos como a fonte completa e exaustiva.
+- Cada frase da newsletter deve ser diretamente suportada por um ou mais factos recebidos.
 - Nao inventes factos, conquistas, emocoes, motivacoes, objetivos ou detalhes pessoais/profissionais.
 - Nao acrescentes interpretacoes ou conclusoes que nao estejam suportadas pelos factos.
 - Nao uses expressoes inferenciais ou avaliativas como "sugere", "indica", "demonstra", "bem equilibrado", "vida rica" ou equivalentes.
+- Nao acrescentes beneficios, impacto, potencial, objetivos, resultados ou planos futuros se isso nao estiver nos factos.
+- Se os factos dizem que alguem "disse que ajudou", mantem essa atribuicao e nao transformes em afirmacao geral.
 - Mantem o idioma dos factos recebidos.
 - Se os factos estiverem em portugues, escreve em portugues europeu.
 - Nao uses portugues do Brasil.
@@ -19,15 +23,25 @@ Regras obrigatorias:
 - Se houver pouca informacao, mantem a secao curta.
 - Nao uses linguagem exagerada, dramatica ou promocional.
 - Nao digas que o texto foi gerado por IA ou adaptado de outro formato.
+- Nao uses Markdown, asteriscos, negrito, listas ou marcadores visuais.
+- Nao uses a forma brasileira "seção"; usa "secção" se precisares dessa palavra.
+- Nao transformes "ajuda" em "garante", "garantir", "assegura" ou expressoes equivalentes.
+- Nao tentes incluir todos os factos recebidos; escolhe apenas os factos essenciais para comunicar a ideia central.
+- Se um facto essencial precisar de atribuicao, preserva essa atribuicao.
 
 Estrutura:
 - Inclui um titulo curto.
-- Escreve um unico paragrafo breve com a informacao principal.
+- Escreve o titulo como texto simples, sem simbolos antes ou depois.
+- Depois do titulo, escreve um unico paragrafo breve com a informacao principal.
+- O paragrafo deve ter 1 frase; usa 2 frases apenas se for necessario para manter clareza.
+- O paragrafo deve ter no maximo 60 palavras.
+- Nao repitas detalhes secundarios se a ideia central ja ficar clara.
 
 Estilo:
 - Tom neutro, informativo e direto.
 - Curto.
 - Pronto a ser usado numa newsletter.
+- Deve ser o formato mais sintetico dos tres.
 
 Output:
 Devolve apenas a secao final da newsletter.

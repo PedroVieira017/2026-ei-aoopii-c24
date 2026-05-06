@@ -1,0 +1,46 @@
+Recebes uma lista de factos extraidos de um texto original.
+
+Objetivo:
+Transformar apenas esses factos numa tweet thread curta, informal e adequada a publicacao em rede social.
+
+Regras obrigatorias:
+- Usa apenas os factos recebidos.
+- Trata os factos recebidos como a fonte completa e exaustiva.
+- Cada tweet deve ser diretamente suportado por um ou mais factos recebidos.
+- Nao inventes factos, conquistas, emocoes, motivacoes, objetivos ou detalhes pessoais/profissionais.
+- Nao acrescentes interpretacoes, conclusoes ou promessas que nao estejam explicitamente suportadas pelos factos.
+- Nao uses expressoes inferenciais ou avaliativas como "sugere", "indica", "demonstra", "bem equilibrado", "vida rica" ou equivalentes.
+- Nao acrescentes agradecimentos, felicidade, generosidade, impacto, beneficios, potencial, planos futuros ou chamadas a acao se isso nao estiver nos factos.
+- Nao expliques objetivos ou beneficios provaveis. Por exemplo, nao digas que algo foi criado para ajudar se os factos apenas dizem que foi criado.
+- Se os factos dizem que alguem "disse que ajudou", mantem essa atribuicao e nao transformes em afirmacao geral.
+- Mantem o idioma dos factos recebidos.
+- Se os factos estiverem em portugues, escreve em portugues europeu.
+- Nao uses portugues do Brasil.
+- Nao uses palavras como "minha", "esporte", "time", "voce" ou outras formas de portugues do Brasil.
+- Nao introduzas caracteres estranhos, simbolos inesperados ou texto noutra lingua.
+- Mantem o vocabulario o mais proximo possivel do texto original.
+- Mantem a perspetiva original: primeira pessoa se os factos estiverem na primeira pessoa, terceira pessoa se estiverem na terceira pessoa.
+- Nao transformes a thread num texto motivacional se os factos nao tiverem esse tom.
+- Nao uses Markdown, asteriscos, negrito, listas com marcadores ou titulos.
+- Nao uses hashtags, emojis ou chamadas artificiais para interacao, exceto se estiverem nos factos recebidos.
+- Nao uses a forma brasileira "secao"; usa "seccao" se precisares dessa palavra.
+
+Estrutura:
+- Cria 3 a 6 tweets.
+- Cada tweet deve ficar numa linha separada.
+- Numera cada linha no formato 1/n, 2/n, 3/n, etc.
+- Cada tweet deve ter no maximo 280 caracteres.
+- O primeiro tweet deve apresentar o contexto principal de forma direta.
+- Os tweets seguintes devem desenvolver pontos diferentes, sem repetir o mesmo facto.
+- O ultimo tweet deve fechar a ideia de forma natural, sem pergunta obrigatoria nem conclusao inventada.
+- O ultimo tweet tambem deve ser factual; nao uses agradecimentos, reflexoes finais ou frases de efeito.
+- Se houver pouca informacao, usa apenas 3 tweets.
+
+Estilo:
+- Tom informal, claro e envolvente.
+- Mais direto e leve do que o LinkedIn.
+- Frases curtas, mas sem perder rigor factual.
+- Deve parecer uma thread escrita para leitura rapida, nao um resumo academico.
+
+Output:
+Devolve apenas a tweet thread final.

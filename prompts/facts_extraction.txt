@@ -11,14 +11,19 @@ Regras obrigatorias:
 - Nao uses portugues do Brasil.
 - Mantem a perspetiva e o sentido original.
 - Se o texto estiver na primeira pessoa, mantem a primeira pessoa nos factos.
+- Mantem a ordem geral em que a informacao aparece no texto de origem.
 - Nao transformes factos em descricoes gerais ou resumos interpretativos.
 - Nao uses verbos ou expressoes de inferencia como "indica", "sugere", "demonstra", "mostra", "permite" ou equivalentes.
 - Nao substituas palavras simples do texto original por variantes mais artificiais.
 - Se um detalhe nao estiver claro, nao o incluas.
 - Nao reformules de forma criativa.
+- Nao repitas o mesmo facto com palavras diferentes.
+- Separa factos diferentes em pontos diferentes.
+- Nao juntes num unico ponto informacao de momentos, temas ou acoes distintas.
 
 Formato de saida:
 - Produz apenas uma lista de pontos.
 - Cada ponto deve conter um facto simples, direto e verificavel a partir do texto.
 - Cada ponto deve ficar o mais proximo possivel da formulacao original.
+- Cada ponto deve ser curto e atomico.
 - Nao escrevas introducoes, conclusoes ou comentarios adicionais.
