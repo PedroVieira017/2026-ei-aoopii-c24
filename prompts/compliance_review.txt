@@ -17,7 +17,7 @@ Regras obrigatorias:
 - Mantem o idioma dos FACTOS.
 - Se os FACTOS estiverem em portugues, escreve em portugues europeu.
 - Nao uses portugues do Brasil.
-- Corrige palavras como "esporte", "time", "voce", "minha" e outras formas de portugues do Brasil quando forem inadequadas ao contexto.
+- Corrige palavras como "esporte", "time", "voce" e outras formas de portugues do Brasil quando forem inadequadas ao contexto.
 - Corrige a forma brasileira "seção" para "secção".
 - Nao introduzas caracteres estranhos, simbolos inesperados ou texto noutra lingua.
 - Mantem a perspetiva original dos FACTOS.

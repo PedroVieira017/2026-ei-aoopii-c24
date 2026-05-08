@@ -45,7 +45,7 @@ Depois da bateria inicial foram feitas melhorias:
 - a validacao de repeticoes passou a ignorar o titulo em formatos com titulo, para reduzir falsos positivos;
 - foi definido `MODEL_MAX_TOKENS` para limitar outputs excessivos.
 
-## Limite encontrado
+## Limite encontrado na primeira validacao
 
 A segunda bateria foi interrompida por limite de tokens da Groq:
 
@@ -55,7 +55,52 @@ Limit 100000 tokens/day
 Used approximately 99641 tokens
 ```
 
-Por isso, a bateria completa pos-correcao deve ser repetida quando o limite da API voltar a estar disponivel.
+Por isso, nessa fase nao foi correto afirmar que a bateria pos-correcao estava completamente fechada.
+
+## Validacao final depois das correcoes
+
+Depois das correcoes, foi executada uma validacao manual com `data/exemplo_entrevista.txt`.
+
+Resultado observado:
+
+- factos extraidos: 9 linhas;
+- blog post gerado: 64 palavras;
+- LinkedIn post gerado: 58 palavras e 2 blocos de paragrafo;
+- tweet thread gerada: 6 tweets, numeracao valida e maior tweet com 107 caracteres;
+- newsletter gerada: corpo com 25 palavras e 1 frase.
+
+Tambem foram adicionados testes unitarios para a logica local de validacao em `tests/test_validation.py`.
+
+Comando executado:
+
+```powershell
+python -m unittest discover -s tests
+```
+
+Resultado:
+
+```text
+Ran 5 tests
+OK
+```
+
+Os testes cobrem:
+
+- contagem de palavras e frases;
+- deteccao de Markdown indevido;
+- validacao de numeracao da tweet thread;
+- regra de reparacao da newsletter;
+- validacao formal de uma tweet thread curta.
+
+## Validacao de audio
+
+Foi criado um ficheiro `.wav` temporario com voz sintetica local e enviado para o endpoint de transcricao da Groq com o modelo `whisper-large-v3-turbo`.
+
+Resultado:
+
+- a chamada de transcricao respondeu com texto;
+- a qualidade da transcricao depende da qualidade da voz/audio de entrada;
+- a transcricao passa a ser usada como fonte textual unica da pipeline.
 
 ## Conclusao
 

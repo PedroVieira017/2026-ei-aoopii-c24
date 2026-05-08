@@ -12,12 +12,21 @@ O projeto segue a ideia do enunciado: escrever uma vez e obter conteudo adequado
 
 ## Input
 
-O MVP recebe texto introduzido manualmente pelo utilizador. Esse texto pode representar, por exemplo:
+A aplicacao recebe uma unica fonte por execucao. A fonte e usada diretamente quando ja e texto, ou transcrita primeiro quando e audio. Pode ser:
+
+- texto introduzido manualmente pelo utilizador;
+- exemplo pre-carregado da pasta `data/`;
+- ficheiro `.txt` ou `.md` carregado pelo utilizador;
+- voice memo/audio carregado pelo utilizador, transcrito antes de entrar na pipeline.
+
+Esse texto pode representar, por exemplo:
 
 - excerto de entrevista;
 - artigo curto;
 - nota de investigacao;
-- transcricao de voice memo.
+- voice memo.
+
+O projeto nao processa imagens. No caso de audio, a aplicacao transcreve primeiro e depois usa a transcricao como fonte unica da pipeline.
 
 ## Outputs
 
@@ -37,7 +46,8 @@ Primeiro, extrai uma lista de factos explicitos do input. Depois, cada formato e
 Pipeline:
 
 ```text
-Input do utilizador
+Input unico
+  -> Transcricao, se a fonte for audio
   -> Extracao de factos
   -> Geracao por formato
   -> Revisao de conformidade
@@ -52,6 +62,7 @@ Input do utilizador
 - Streamlit
 - OpenAI Python SDK
 - Groq API, usando endpoint compativel com OpenAI
+- Groq Speech to Text para transcricao de audio
 - python-dotenv
 
 ## Como executar
@@ -85,6 +96,7 @@ streamlit run app.py
 
 ```text
 app.py                         Aplicacao Streamlit e pipeline de geracao
+validation.py                  Funcoes locais de validacao formal
 prompts/facts_extraction.txt   Prompt para extrair factos
 prompts/blog_post.txt          Prompt do blog post
 prompts/linkedin_post.txt      Prompt do LinkedIn
@@ -92,7 +104,8 @@ prompts/tweet_thread.txt       Prompt da tweet thread
 prompts/newsletter_section.txt Prompt da newsletter
 prompts/compliance_review.txt  Prompt de revisao de conformidade
 data/                          Exemplos de input para demonstracao
-docs/                          Documentacao tecnica do projeto
+docs/                          Documentacao tecnica e exemplo de outputs
+tests/                         Testes unitarios da validacao local
 ```
 
 ## Validacao
@@ -106,8 +119,30 @@ A interface mostra uma validacao rapida para cada output:
 - verbos fortes de garantia ou comprovacao;
 - limites especificos por formato, como 280 caracteres por tweet e 60 palavras no corpo da newsletter.
 
+Os testes unitarios podem ser executados com:
+
+```powershell
+python -m unittest discover -s tests
+```
+
+## Exportacao
+
+Depois de gerar conteudos, a interface permite descarregar um ficheiro Markdown com:
+
+- fonte final usada;
+- factos extraidos;
+- blog post;
+- LinkedIn post;
+- tweet thread;
+- newsletter section.
+
 ## Limites atuais
 
-- O MVP recebe texto manualmente; ainda nao processa audio real.
+- O MVP trabalha com texto e audio; ainda nao processa imagens.
 - A publicacao nas plataformas nao esta automatizada.
 - A validacao local ajuda a detetar problemas formais, mas a fidelidade factual continua a depender da qualidade da extracao de factos e da revisao por LLM.
+
+## Decisoes fora do MVP
+
+- As publishing APIs foram deixadas fora por exigirem credenciais e configuracao especifica de plataformas externas. Em vez disso, o projeto exporta os resultados em Markdown para publicacao manual.
+- Nao foi usado LangGraph/CrewAI porque o enunciado exige LLM com prompting especifico por formato; a arquitetura foi mantida simples e demonstravel em Streamlit.

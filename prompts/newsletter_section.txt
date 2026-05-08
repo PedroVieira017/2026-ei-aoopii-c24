@@ -15,7 +15,7 @@ Regras obrigatorias:
 - Mantem o idioma dos factos recebidos.
 - Se os factos estiverem em portugues, escreve em portugues europeu.
 - Nao uses portugues do Brasil.
-- Nao uses palavras como "minha", "esporte", "time", "voce" ou outras formas de portugues do Brasil.
+- Nao uses palavras como "esporte", "time", "voce" ou outras formas de portugues do Brasil.
 - Nao introduzas caracteres estranhos, simbolos inesperados ou texto noutra lingua.
 - Nao acrescentes frases finais aspiracionais, motivacionais ou conclusivas que nao estejam no texto de origem.
 - Mantem o vocabulario o mais proximo possivel do texto original.
