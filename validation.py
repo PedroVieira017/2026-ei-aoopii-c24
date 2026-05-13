@@ -32,6 +32,7 @@ FORBIDDEN_PT_BR_TERMS = {
     "esporte",
     "midia",
     "m\u00eddia",
+    "secao",
     "se\u00e7\u00e3o",
     "time",
     "usuario",
@@ -123,7 +124,18 @@ def get_tweet_lines(text: str) -> list[str]:
 def has_thread_numbering(lines: list[str]) -> bool:
     if not lines:
         return False
-    return all(re.match(r"^\d+/\d+\s+\S", line) for line in lines)
+
+    expected_total = len(lines)
+    for expected_number, line in enumerate(lines, start=1):
+        match = re.match(r"^(\d+)/(\d+)\s+\S", line)
+        if not match:
+            return False
+
+        number, total = (int(value) for value in match.groups())
+        if number != expected_number or total != expected_total:
+            return False
+
+    return True
 
 
 def build_validation_checks(format_key: str, text: str) -> dict:

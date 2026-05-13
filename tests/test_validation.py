@@ -25,9 +25,17 @@ class ValidationTests(unittest.TestCase):
     def test_thread_numbering(self):
         valid_lines = ["1/3 Primeiro tweet", "2/3 Segundo tweet", "3/3 Terceiro tweet"]
         invalid_lines = ["Primeiro tweet", "2/3 Segundo tweet"]
+        invalid_total = ["1/4 Primeiro tweet", "2/4 Segundo tweet", "3/4 Terceiro tweet"]
+        invalid_sequence = [
+            "1/3 Primeiro tweet",
+            "3/3 Segundo tweet",
+            "2/3 Terceiro tweet",
+        ]
 
         self.assertTrue(has_thread_numbering(valid_lines))
         self.assertFalse(has_thread_numbering(invalid_lines))
+        self.assertFalse(has_thread_numbering(invalid_total))
+        self.assertFalse(has_thread_numbering(invalid_sequence))
 
     def test_newsletter_repair_rules(self):
         valid_newsletter = "Titulo curto\nTexto direto com menos de sessenta palavras."

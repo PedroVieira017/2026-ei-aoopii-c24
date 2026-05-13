@@ -105,6 +105,7 @@ prompts/newsletter_section.txt Prompt da newsletter
 prompts/compliance_review.txt  Prompt de revisao de conformidade
 data/                          Exemplos de input para demonstracao
 docs/                          Documentacao tecnica e exemplo de outputs
+docs/presentation_guide.md     Guia curto para apresentar e defender o projeto
 tests/                         Testes unitarios da validacao local
 ```
 
