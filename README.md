@@ -71,7 +71,6 @@ Input unico
 - Groq Speech to Text para transcricao de audio
 - python-dotenv
 - requests
-- Streamlit, mantido como painel legado auxiliar
 
 ## Como executar
 
@@ -115,12 +114,6 @@ Depois abrir:
 http://127.0.0.1:5000
 ```
 
-6. Opcionalmente, executar o painel Streamlit legado:
-
-```powershell
-streamlit run app.py
-```
-
 ## Estrutura
 
 ```text
@@ -130,7 +123,6 @@ content_pipeline.py            Pipeline reutilizavel de geracao
 web_demo.py                    Backend Flask do painel web
 web_demo/templates/index.html  Interface HTML do painel web
 web_demo/static/               CSS e JavaScript do painel web
-app.py                         Painel Streamlit legado auxiliar
 validation.py                  Funcoes locais de validacao formal
 prompts/facts_extraction.txt   Prompt para extrair factos
 prompts/blog_post.txt          Prompt do blog post

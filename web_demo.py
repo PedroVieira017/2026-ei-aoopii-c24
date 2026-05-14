@@ -71,18 +71,13 @@ def generate():
     try:
         source_text = request.form.get("source_text", "").strip()
         uploaded_file = request.files.get("source_file")
-        agent = get_agent()
 
         if uploaded_file and uploaded_file.filename:
             filename = uploaded_file.filename
             file_content = uploaded_file.read()
             extension = get_extension(filename)
 
-            if extension in TEXT_FILE_TYPES:
-                output = agent.process_text_file(filename, file_content)
-            elif extension in AUDIO_FILE_TYPES:
-                output = agent.process_audio_file(filename, file_content)
-            else:
+            if extension not in TEXT_FILE_TYPES and extension not in AUDIO_FILE_TYPES:
                 return (
                     jsonify(
                         {
@@ -94,7 +89,13 @@ def generate():
                     ),
                     400,
                 )
+            agent = get_agent()
+            if extension in TEXT_FILE_TYPES:
+                output = agent.process_text_file(filename, file_content)
+            else:
+                output = agent.process_audio_file(filename, file_content)
         elif source_text:
+            agent = get_agent()
             output = agent.process_text(source_text, "texto escrito no painel web")
         else:
             return jsonify({"error": "Insere texto ou carrega um ficheiro."}), 400

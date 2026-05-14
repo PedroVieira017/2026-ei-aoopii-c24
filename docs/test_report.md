@@ -69,7 +69,7 @@ Resultado observado:
 - tweet thread gerada: 6 tweets, numeracao valida e maior tweet com 107 caracteres;
 - newsletter gerada: corpo com 25 palavras e 1 frase.
 
-Tambem foram adicionados testes unitarios para a logica local de validacao em `tests/test_validation.py`.
+Tambem foram adicionados testes unitarios para a logica local de validacao em `tests/test_validation.py` e para a demo web em `tests/test_web_demo.py`.
 
 Comando executado:
 
@@ -80,7 +80,7 @@ python -m unittest discover -s tests
 Resultado:
 
 ```text
-Ran 5 tests
+Ran 11 tests
 OK
 ```
 
@@ -90,7 +90,12 @@ Os testes cobrem:
 - deteccao de Markdown indevido;
 - validacao de numeracao da tweet thread;
 - regra de reparacao da newsletter;
-- validacao formal de uma tweet thread curta.
+- validacao formal de uma tweet thread curta;
+- carregamento da pagina web;
+- endpoint de exemplos;
+- rejeicao de pedidos sem input;
+- rejeicao de ficheiros nao suportados antes de criar cliente LLM;
+- montagem do payload de outputs com validacao.
 
 ## Validacao de audio
 

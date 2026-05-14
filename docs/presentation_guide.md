@@ -12,7 +12,6 @@ A parte importante e que o agente nao faz apenas copy-paste com outras palavras.
 - Adaptador Telegram de exemplo em `telegram_agent.py`.
 - Pipeline reutilizavel em `content_pipeline.py`.
 - Painel web profissional em `web_demo.py` e `web_demo/`, usado para demonstracao e debug.
-- Painel Streamlit legado em `app.py`, mantido apenas como alternativa auxiliar.
 - Entrada por mensagem de texto, ficheiro `.txt`/`.md` ou audio/nota de voz.
 - Transcricao de audio antes da geracao, para manter uma fonte unica em texto.
 - Extracao de factos antes da escrita dos outputs.

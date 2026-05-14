@@ -64,4 +64,4 @@ As publishing APIs foram consideradas fora do MVP porque o enunciado as apresent
 
 ## Decisao sobre o painel web
 
-O painel web nao substitui o agente. Ele existe para demonstrar a pipeline de forma visual e mais profissional do que Streamlit. O frontend HTML/CSS/JavaScript comunica com um backend Flask local; a chave da API fica apenas no backend e nunca e exposta no browser.
+O painel web nao substitui o agente. Ele existe para demonstrar a pipeline de forma visual e profissional. O frontend HTML/CSS/JavaScript comunica com um backend Flask local; a chave da API fica apenas no backend e nunca e exposta no browser.
