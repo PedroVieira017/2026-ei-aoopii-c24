@@ -2,7 +2,7 @@
 
 ## Explicacao curta
 
-Este projeto implementa um agente conversacional de pipeline de conteudo para uma aplicacao/rede social. O utilizador envia uma unica fonte numa conversa, e o agente devolve automaticamente varios conteudos adaptados a plataformas diferentes. O Telegram e usado apenas como adaptador funcional de demonstracao.
+Este projeto implementa um agente conversacional de pipeline de conteudo para uma aplicacao/rede social. O utilizador envia uma unica fonte numa conversa, e o agente devolve automaticamente varios conteudos adaptados a plataformas diferentes. Telegram e Discord sao usados como adaptadores funcionais de demonstracao.
 
 A parte importante e que o agente nao faz apenas copy-paste com outras palavras. Primeiro transforma a fonte numa lista de factos explicitos. Depois usa prompts especificos para criar quatro formatos: blog post, post de LinkedIn, tweet thread e secao de newsletter. Cada formato tem regras proprias de estrutura, tom, tamanho e uso.
 
@@ -10,6 +10,7 @@ A parte importante e que o agente nao faz apenas copy-paste com outras palavras.
 
 - Nucleo de agente conversacional em `conversation_agent.py`.
 - Adaptador Telegram de exemplo em `telegram_agent.py`.
+- Adaptador Discord de exemplo em `discord_agent.py`.
 - Pipeline reutilizavel em `content_pipeline.py`.
 - Painel web profissional em `web_demo.py` e `web_demo/`, usado para demonstracao e debug.
 - Entrada por mensagem de texto, ficheiro `.txt`/`.md` ou audio/nota de voz.
@@ -65,7 +66,7 @@ E o formato mais sintetico. Tem um titulo curto e um paragrafo pequeno pronto a 
 
 ## Frase para defender a decisao tecnica
 
-Transformei o projeto num agente conversacional: em vez de ser apenas um site, o utilizador envia a fonte numa aplicacao/rede social e recebe automaticamente os conteudos. A pipeline por tras do agente primeiro extrai factos explicitos e so depois gera os formatos com prompts especificos. Isto reduz invencoes do modelo e garante que cada versao e adaptada ao canal, nao apenas reformulada. O Telegram e apenas uma demonstracao concreta do mesmo agente.
+Transformei o projeto num agente conversacional: em vez de ser apenas um site, o utilizador envia a fonte numa aplicacao/rede social e recebe automaticamente os conteudos. A pipeline por tras do agente primeiro extrai factos explicitos e so depois gera os formatos com prompts especificos. Isto reduz invencoes do modelo e garante que cada versao e adaptada ao canal, nao apenas reformulada. Telegram e Discord demonstram que o mesmo nucleo pode ser ligado a canais diferentes.
 
 O painel web em HTML/CSS/JavaScript nao e o produto principal. Ele e uma demo visual ligada ao mesmo agente, com backend Flask, para apresentar a pipeline de forma mais profissional sem expor a chave da API no browser.
 
@@ -79,8 +80,9 @@ O painel web em HTML/CSS/JavaScript nao e o produto principal. Ele e uma demo vi
 6. Mostrar os factos extraidos.
 7. Mostrar os quatro outputs enviados pelo bot.
 8. Abrir o ficheiro Markdown recebido.
-9. Opcionalmente, abrir o painel web com `python web_demo.py`.
-10. Explicar que o painel web e apenas demo/debug; o centro do projeto continua a ser o agente.
+9. Executar `python discord_agent.py` e mostrar a mesma ideia no Discord com `!pipeline`.
+10. Opcionalmente, abrir o painel web com `python web_demo.py`.
+11. Explicar que o painel web e apenas demo/debug; o centro do projeto continua a ser o agente.
 
 ## Limites assumidos
 

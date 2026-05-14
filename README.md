@@ -10,7 +10,7 @@ Desenvolver um agente conversacional que recebe uma unica fonte de conteudo e ge
 
 O projeto segue a ideia do enunciado: escrever uma vez e obter conteudo adequado ao local onde vai ser publicado, sem fazer apenas uma reformulacao generica.
 
-O modo principal do projeto e um agente conversacional para uma aplicacao/rede social. O nucleo do agente esta separado da interface, por isso pode ser ligado a canais como WhatsApp, Telegram, Discord, Slack ou outra plataforma com API. Neste projeto, o Telegram fica como adaptador funcional de exemplo. Existe tambem um painel web profissional em HTML/CSS/JS com backend Flask, usado apenas para demonstracao e debug.
+O modo principal do projeto e um agente conversacional para uma aplicacao/rede social. O nucleo do agente esta separado da interface, por isso pode ser ligado a canais como WhatsApp, Telegram, Discord, Slack ou outra plataforma com API. Neste projeto, Telegram e Discord ficam como adaptadores funcionais de exemplo. Existe tambem um painel web profissional em HTML/CSS/JS com backend Flask, usado apenas para demonstracao e debug.
 
 ## Input
 
@@ -64,6 +64,8 @@ Input unico
 - Python
 - Nucleo de agente conversacional independente do canal
 - Telegram Bot API
+- Discord Bot API
+- discord.py
 - Flask
 - HTML/CSS/JavaScript
 - OpenAI Python SDK
@@ -92,9 +94,10 @@ pip install -r requirements.txt
 ```text
 GROQ_API_KEY=colocar_a_chave_aqui
 TELEGRAM_BOT_TOKEN=colocar_o_token_do_bot_aqui
+DISCORD_BOT_TOKEN=colocar_o_token_do_bot_aqui
 ```
 
-O `TELEGRAM_BOT_TOKEN` e obtido ao criar um bot no BotFather do Telegram.
+O `TELEGRAM_BOT_TOKEN` e obtido ao criar um bot no BotFather do Telegram. O `DISCORD_BOT_TOKEN` e obtido ao criar uma app/bot no Discord Developer Portal.
 
 4. Executar o adaptador Telegram de exemplo:
 
@@ -102,7 +105,13 @@ O `TELEGRAM_BOT_TOKEN` e obtido ao criar um bot no BotFather do Telegram.
 python telegram_agent.py
 ```
 
-5. Opcionalmente, executar o painel web profissional:
+5. Executar o adaptador Discord de exemplo:
+
+```powershell
+python discord_agent.py
+```
+
+6. Opcionalmente, executar o painel web profissional:
 
 ```powershell
 python web_demo.py
@@ -118,6 +127,7 @@ http://127.0.0.1:5000
 
 ```text
 telegram_agent.py              Agente conversacional para Telegram
+discord_agent.py               Agente conversacional para Discord
 conversation_agent.py          Nucleo do agente independente do canal
 content_pipeline.py            Pipeline reutilizavel de geracao
 web_demo.py                    Backend Flask do painel web
@@ -132,7 +142,9 @@ prompts/newsletter_section.txt Prompt da newsletter
 prompts/compliance_review.txt  Prompt de revisao de conformidade
 data/                          Exemplos de input para demonstracao
 docs/                          Documentacao tecnica e exemplo de outputs
+docs/discord_setup.md          Guia para configurar o bot Discord
 docs/presentation_guide.md     Guia curto para apresentar e defender o projeto
+docs/testing_guide.md          Guia rapido para testar o projeto
 tests/                         Testes unitarios da validacao local
 .env.example                   Exemplo das variaveis de ambiente necessarias
 ```
@@ -154,6 +166,8 @@ Os testes unitarios podem ser executados com:
 python -m unittest discover -s tests
 ```
 
+Um guia mais completo esta em `docs/testing_guide.md`.
+
 ## Resposta e exportacao
 
 Depois de gerar conteudos, o agente responde no canal de conversa com os formatos principais e envia tambem um ficheiro Markdown com:
@@ -174,4 +188,4 @@ Depois de gerar conteudos, o agente responde no canal de conversa com os formato
 ## Decisoes fora do MVP
 
 - As publishing APIs foram deixadas fora por exigirem credenciais e configuracao especifica de plataformas externas. Em vez disso, o agente envia os conteudos ao utilizador e exporta Markdown para publicacao manual.
-- Nao foi usado LangGraph/CrewAI porque o enunciado exige LLM com prompting especifico por formato; a arquitetura foi mantida simples, mas com um nucleo de agente conversacional e um adaptador funcional para Telegram.
+- Nao foi usado LangGraph/CrewAI porque o enunciado exige LLM com prompting especifico por formato; a arquitetura foi mantida simples, mas com um nucleo de agente conversacional e adaptadores funcionais para Telegram e Discord.

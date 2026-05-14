@@ -69,7 +69,7 @@ Resultado observado:
 - tweet thread gerada: 6 tweets, numeracao valida e maior tweet com 107 caracteres;
 - newsletter gerada: corpo com 25 palavras e 1 frase.
 
-Tambem foram adicionados testes unitarios para a logica local de validacao em `tests/test_validation.py` e para a demo web em `tests/test_web_demo.py`.
+Tambem foram adicionados testes unitarios para a logica local de validacao em `tests/test_validation.py`, para o nucleo conversacional em `tests/test_conversation_agent.py`, para o adaptador Discord em `tests/test_discord_agent.py` e para a demo web em `tests/test_web_demo.py`.
 
 Comando executado:
 
@@ -80,7 +80,7 @@ python -m unittest discover -s tests
 Resultado:
 
 ```text
-Ran 11 tests
+Ran 18 tests
 OK
 ```
 
@@ -91,6 +91,13 @@ Os testes cobrem:
 - validacao de numeracao da tweet thread;
 - regra de reparacao da newsletter;
 - validacao formal de uma tweet thread curta;
+- execucao do nucleo conversacional sem depender de Telegram ou Flask;
+- rejeicao de input vazio no agente antes de chamar a pipeline;
+- transcricao de audio antes da geracao;
+- ordem das mensagens de resposta do agente;
+- normalizacao de extensoes no adaptador Discord;
+- remocao do comando `!pipeline`;
+- remocao de mencoes ao bot no texto fonte;
 - carregamento da pagina web;
 - endpoint de exemplos;
 - rejeicao de pedidos sem input;

@@ -4,7 +4,7 @@
 
 O agente recebe uma unica fonte de conteudo por conversa e produz varias versoes adaptadas a plataformas diferentes. O objetivo nao e apenas resumir ou reformular: cada output deve respeitar as convencoes do formato onde vai ser publicado.
 
-Neste projeto, o agente foi separado em duas partes: um nucleo conversacional independente do canal e adaptadores de interface. Isto significa que o mesmo agente pode ser ligado a uma aplicacao ou rede social com API, como WhatsApp, Telegram, Discord, Slack ou outro canal. O Telegram e um adaptador funcional de exemplo. O painel Flask/HTML e apenas uma demo visual profissional para apresentacao e debug.
+Neste projeto, o agente foi separado em duas partes: um nucleo conversacional independente do canal e adaptadores de interface. Isto significa que o mesmo agente pode ser ligado a uma aplicacao ou rede social com API, como WhatsApp, Telegram, Discord, Slack ou outro canal. Telegram e Discord sao adaptadores funcionais de exemplo. O painel Flask/HTML e apenas uma demo visual profissional para apresentacao e debug.
 
 ## Fluxo de execucao
 
