@@ -1,75 +1,19 @@
-import os
-from pathlib import Path
-
 import streamlit as st
-from dotenv import load_dotenv
-from openai import OpenAI
 
-from validation import build_validation_checks, newsletter_needs_repair
+from content_pipeline import (
+    AUDIO_FILE_TYPES,
+    build_markdown_export as build_pipeline_markdown_export,
+    create_client,
+    decode_text_file,
+    extract_facts,
+    format_example_name,
+    generate_content,
+    get_example_files,
+    transcribe_audio_bytes,
+)
+from validation import build_validation_checks
 
 
-load_dotenv()
-
-BASE_DIR = Path(__file__).parent
-PROMPTS_DIR = BASE_DIR / "prompts"
-DATA_DIR = BASE_DIR / "data"
-MODEL_NAME = "llama-3.3-70b-versatile"
-AUDIO_TRANSCRIPTION_MODEL = "whisper-large-v3-turbo"
-MODEL_TEMPERATURE = 0.2
-MODEL_MAX_TOKENS = 900
-AUDIO_FILE_TYPES = [
-    "flac",
-    "mp3",
-    "mp4",
-    "mpeg",
-    "mpga",
-    "m4a",
-    "ogg",
-    "wav",
-    "webm",
-]
-NEWSLETTER_REPAIR_INSTRUCTIONS = """
-Recebes FACTOS e um RASCUNHO de uma secao de newsletter.
-
-Objetivo:
-Reescrever o RASCUNHO para cumprir rigorosamente o formato de newsletter.
-
-Regras obrigatorias:
-- Usa apenas informacao presente nos FACTOS.
-- Nao tentes incluir todos os FACTOS.
-- Mantem apenas a ideia central e os factos essenciais.
-- Devolve um titulo curto na primeira linha.
-- Depois do titulo, devolve um unico paragrafo.
-- O paragrafo deve ter 1 frase; usa 2 frases apenas se for indispensavel.
-- O paragrafo deve ter no maximo 60 palavras.
-- Nao uses Markdown, asteriscos, negrito, listas ou marcadores.
-- Nao acrescentes conclusoes, garantias, motivacoes ou interpretacoes.
-
-Output:
-Devolve apenas a newsletter final.
-""".strip()
-STRICT_FACTUAL_REPAIR_INSTRUCTIONS = """
-Recebes FORMATO, FACTOS e TEXTO.
-
-Objetivo:
-Reescrever o TEXTO final para que cada frase fique diretamente suportada pelos FACTOS.
-
-Regras obrigatorias:
-- Os FACTOS sao a fonte completa. Nao uses conhecimento geral, contexto provavel ou inferencias.
-- Remove qualquer frase que nao possa ser ligada diretamente a um ou mais FACTOS.
-- Nao acrescentes sentimentos, agradecimentos, motivacoes, objetivos, beneficios, impactos, oportunidades, conclusoes ou planos futuros.
-- Nao digas que algo "oferece", "permite", "facilita", "mostra", "sugere", "representa", "pode" ou "tem potencial" se isso nao estiver nos FACTOS.
-- Se os FACTOS dizem que alguem "disse que ajudou", mantem essa atribuicao. Nao transformes isso numa afirmacao geral de que algo ajuda.
-- Preserva o formato indicado em FORMATO.
-- Se FORMATO for blog, devolve um blog post curto, com titulo simples e secoes apenas se houver factos suficientes.
-- Se FORMATO for linkedin, devolve 2 a 4 paragrafos curtos, sem titulo.
-- Se FORMATO for tweet_thread, devolve 3 a 6 linhas numeradas no formato 1/n, 2/n, etc., cada uma com no maximo 280 caracteres.
-- Se FORMATO for newsletter, devolve um titulo curto e um unico paragrafo com no maximo 60 palavras.
-- Nao uses Markdown, listas, asteriscos, negrito, hashtags, emojis ou perguntas finais.
-
-Output:
-Devolve apenas o texto final corrigido.
-""".strip()
 if "results" not in st.session_state:
     st.session_state.results = {}
 if "facts" not in st.session_state:
@@ -80,131 +24,13 @@ if "source_description" not in st.session_state:
     st.session_state.source_description = ""
 
 
-def load_prompt(filename: str) -> str:
-    prompt_path = PROMPTS_DIR / filename
-    if not prompt_path.exists():
-        raise FileNotFoundError(f"Ficheiro nao encontrado: {filename}")
-    return prompt_path.read_text(encoding="utf-8")
-
-
-def get_example_files() -> list[Path]:
-    if not DATA_DIR.exists():
-        return []
-    return sorted(DATA_DIR.glob("*.txt"))
-
-
-def format_example_name(example_path: Path) -> str:
-    return example_path.stem.replace("_", " ").capitalize()
-
-
-def decode_text_file(file_content: bytes) -> str:
-    for encoding in ("utf-8-sig", "utf-8", "cp1252", "latin-1"):
-        try:
-            return file_content.decode(encoding)
-        except UnicodeDecodeError:
-            continue
-    return file_content.decode("utf-8", errors="replace")
-
-
-def transcribe_audio(client: OpenAI, uploaded_file) -> str:
-    transcription = client.audio.transcriptions.create(
-        file=(uploaded_file.name, uploaded_file.getvalue()),
-        model=AUDIO_TRANSCRIPTION_MODEL,
-        response_format="text",
-        language="pt",
-        temperature=0,
-    )
-
-    if isinstance(transcription, str):
-        return transcription.strip()
-    return getattr(transcription, "text", str(transcription)).strip()
-
-
-def run_generation(client: OpenAI, instructions: str, content: str) -> str:
-    response = client.chat.completions.create(
-        model=MODEL_NAME,
-        messages=[
-            {"role": "system", "content": instructions},
-            {"role": "user", "content": content},
-        ],
-        temperature=MODEL_TEMPERATURE,
-        max_completion_tokens=MODEL_MAX_TOKENS,
-    )
-    return (response.choices[0].message.content or "").strip()
-
-
-def extract_facts(client: OpenAI, source_text: str) -> str:
-    prompt = load_prompt("facts_extraction.txt")
-    return run_generation(client, prompt, source_text)
-
-
-def generate_content(
-    client: OpenAI, prompt_filename: str, facts_text: str, format_key: str
-) -> dict:
-    prompt = load_prompt(prompt_filename)
-    draft = run_generation(client, prompt, facts_text)
-    review_prompt = load_prompt("compliance_review.txt")
-    reviewed_text = run_generation(
-        client,
-        review_prompt,
-        f"FORMATO:\n{format_key}\n\nFACTOS:\n{facts_text}\n\nRASCUNHO:\n{draft}",
-    )
-    reviewed_text = run_generation(
-        client,
-        STRICT_FACTUAL_REPAIR_INSTRUCTIONS,
-        f"FORMATO:\n{format_key}\n\nFACTOS:\n{facts_text}\n\nTEXTO:\n{reviewed_text}",
-    )
-
-    if format_key == "newsletter" and newsletter_needs_repair(reviewed_text):
-        reviewed_text = run_generation(
-            client,
-            NEWSLETTER_REPAIR_INSTRUCTIONS,
-            f"FACTOS:\n{facts_text}\n\nRASCUNHO:\n{reviewed_text}",
-        )
-
-    return {
-        "prompt": prompt,
-        "text": reviewed_text,
-    }
-
-
 def build_markdown_export() -> str:
-    results = st.session_state.results
-    sections = [
-        "# Content Pipeline Agent - outputs",
-        "",
-        f"Fonte: {st.session_state.source_description or 'nao indicada'}",
-        "",
-        "## Texto fonte",
-        "",
-        st.session_state.source_text or "",
-        "",
-        "## Factos extraidos",
-        "",
-        st.session_state.facts or "",
-        "",
-    ]
-
-    output_titles = {
-        "blog": "Blog Post",
-        "linkedin": "LinkedIn Post",
-        "tweet_thread": "Tweet Thread",
-        "newsletter": "Newsletter Section",
-    }
-
-    for key, title in output_titles.items():
-        if key not in results:
-            continue
-        sections.extend(
-            [
-                f"## {title}",
-                "",
-                results[key]["text"],
-                "",
-            ]
-        )
-
-    return "\n".join(sections).strip() + "\n"
+    return build_pipeline_markdown_export(
+        st.session_state.source_description,
+        st.session_state.source_text,
+        st.session_state.facts,
+        st.session_state.results,
+    )
 
 
 def render_validation(format_key: str, text: str) -> None:
@@ -302,66 +128,62 @@ if st.button("Gerar conteudos"):
     if not texto.strip() and uploaded_audio is None:
         st.warning("Insere texto ou carrega uma fonte primeiro.")
     else:
-        api_key = os.getenv("GROQ_API_KEY")
+        try:
+            client = create_client()
 
-        if not api_key:
-            st.error("A variavel GROQ_API_KEY nao foi encontrada no ficheiro .env.")
-        else:
-            try:
-                client = OpenAI(
-                    api_key=api_key,
-                    base_url="https://api.groq.com/openai/v1",
-                )
-
-                with st.spinner("A gerar conteudos..."):
-                    if uploaded_audio is not None:
-                        texto = transcribe_audio(client, uploaded_audio)
-                        if not texto.strip():
-                            raise ValueError("A transcricao do audio ficou vazia.")
-
-                    st.session_state.source_text = texto
-                    st.session_state.source_description = source_description
-                    st.session_state.facts = extract_facts(client, texto)
-                    st.session_state.results = {
-                        "blog": generate_content(
-                            client,
-                            "blog_post.txt",
-                            st.session_state.facts,
-                            "blog",
-                        ),
-                        "linkedin": generate_content(
-                            client,
-                            "linkedin_post.txt",
-                            st.session_state.facts,
-                            "linkedin",
-                        ),
-                        "tweet_thread": generate_content(
-                            client,
-                            "tweet_thread.txt",
-                            st.session_state.facts,
-                            "tweet_thread",
-                        ),
-                        "newsletter": generate_content(
-                            client,
-                            "newsletter_section.txt",
-                            st.session_state.facts,
-                            "newsletter",
-                        ),
-                    }
-
-                st.success("Conteudos gerados com sucesso.")
-                if st.session_state.source_description:
-                    st.caption(f"Fonte usada: {st.session_state.source_description}.")
+            with st.spinner("A gerar conteudos..."):
                 if uploaded_audio is not None:
-                    with st.expander("Transcricao usada"):
-                        st.text_area(
-                            "Texto transcrito",
-                            value=st.session_state.source_text,
-                            height=180,
-                        )
+                    texto = transcribe_audio_bytes(
+                        client,
+                        uploaded_audio.name,
+                        uploaded_audio.getvalue(),
+                    )
+                    if not texto.strip():
+                        raise ValueError("A transcricao do audio ficou vazia.")
 
-            except Exception as error:
-                st.error(f"Ocorreu um erro ao gerar os conteudos: {error}")
+                st.session_state.source_text = texto
+                st.session_state.source_description = source_description
+                st.session_state.facts = extract_facts(client, texto)
+                st.session_state.results = {
+                    "blog": generate_content(
+                        client,
+                        "blog_post.txt",
+                        st.session_state.facts,
+                        "blog",
+                    ),
+                    "linkedin": generate_content(
+                        client,
+                        "linkedin_post.txt",
+                        st.session_state.facts,
+                        "linkedin",
+                    ),
+                    "tweet_thread": generate_content(
+                        client,
+                        "tweet_thread.txt",
+                        st.session_state.facts,
+                        "tweet_thread",
+                    ),
+                    "newsletter": generate_content(
+                        client,
+                        "newsletter_section.txt",
+                        st.session_state.facts,
+                        "newsletter",
+                    ),
+                }
+
+            st.success("Conteudos gerados com sucesso.")
+            if st.session_state.source_description:
+                st.caption(f"Fonte usada: {st.session_state.source_description}.")
+            if uploaded_audio is not None:
+                with st.expander("Transcricao usada"):
+                    st.text_area(
+                        "Texto transcrito",
+                        value=st.session_state.source_text,
+                        height=180,
+                    )
+
+        except Exception as error:
+            st.error(f"Ocorreu um erro ao gerar os conteudos: {error}")
 
 st.divider()
 
