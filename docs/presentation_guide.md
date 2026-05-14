@@ -2,26 +2,31 @@
 
 ## Explicacao curta
 
-Este projeto implementa um agente de pipeline de conteudo. A ideia principal e receber uma unica fonte, como uma entrevista, artigo, nota de investigacao ou audio, e transformar essa fonte em varios conteudos adaptados a plataformas diferentes.
+Este projeto implementa um agente conversacional de pipeline de conteudo para uma aplicacao/rede social. O utilizador envia uma unica fonte numa conversa, e o agente devolve automaticamente varios conteudos adaptados a plataformas diferentes. O Telegram e usado apenas como adaptador funcional de demonstracao.
 
-O agente nao faz apenas copy-paste com palavras diferentes. Primeiro transforma a fonte numa lista de factos explicitos. Depois usa prompts especificos para criar quatro formatos: blog post, post de LinkedIn, tweet thread e secao de newsletter. Cada formato tem regras proprias de estrutura, tom, tamanho e uso.
+A parte importante e que o agente nao faz apenas copy-paste com outras palavras. Primeiro transforma a fonte numa lista de factos explicitos. Depois usa prompts especificos para criar quatro formatos: blog post, post de LinkedIn, tweet thread e secao de newsletter. Cada formato tem regras proprias de estrutura, tom, tamanho e uso.
 
 ## O que foi construido
 
-- Uma aplicacao Streamlit com interface para escolher a fonte.
-- Entrada por texto manual, exemplo local, ficheiro `.txt`/`.md` ou audio.
+- Nucleo de agente conversacional em `conversation_agent.py`.
+- Adaptador Telegram de exemplo em `telegram_agent.py`.
+- Pipeline reutilizavel em `content_pipeline.py`.
+- Painel web profissional em `web_demo.py` e `web_demo/`, usado para demonstracao e debug.
+- Painel Streamlit legado em `app.py`, mantido apenas como alternativa auxiliar.
+- Entrada por mensagem de texto, ficheiro `.txt`/`.md` ou audio/nota de voz.
 - Transcricao de audio antes da geracao, para manter uma fonte unica em texto.
 - Extracao de factos antes da escrita dos outputs.
 - Quatro prompts especificos, um por formato final.
 - Revisao de conformidade para remover informacao sem suporte nos factos.
 - Reparacao factual final para reduzir alucinacoes.
-- Validacao local dos outputs na interface.
-- Exportacao final em Markdown.
+- Validacao local dos outputs.
+- Exportacao final em Markdown enviada pelo agente.
 
 ## Como a pipeline funciona
 
 ```text
-Fonte unica
+Mensagem numa aplicacao/rede social
+  -> Texto, ficheiro ou audio
   -> Transcricao, se for audio
   -> Extracao de factos explicitos
   -> Geracao do blog post
@@ -29,21 +34,21 @@ Fonte unica
   -> Geracao da tweet thread
   -> Geracao da newsletter
   -> Revisao e reparacao factual
-  -> Validacao formal por formato
-  -> Exportacao em Markdown
+  -> Resposta no canal de conversa
+  -> Envio de ficheiro Markdown
 ```
 
 ## Como cumpre o enunciado
 
 | Requisito | Como foi cumprido |
 | --- | --- |
-| Receber um unico input | A aplicacao usa apenas uma fonte por execucao. Se for audio, primeiro transcreve e depois usa essa transcricao como fonte unica. |
-| Aceitar fontes como entrevista, artigo, nota ou voice memo | Ha texto manual, exemplos em `data/`, upload de texto e upload de audio. |
+| Receber um unico input | O agente processa uma fonte por pedido. Se for audio, primeiro transcreve e depois usa essa transcricao como fonte unica. |
+| Aceitar fontes como entrevista, artigo, nota ou voice memo | O agente aceita texto, ficheiros `.txt`/`.md` e notas de voz/audio, dependendo do adaptador do canal. |
 | Gerar pelo menos 3 formatos | Gera 4 formatos: blog, LinkedIn, Twitter/X e newsletter. |
 | Adaptar cada formato ao canal | Cada output tem prompt proprio com regras de tom, tamanho, estrutura e finalidade. |
 | Evitar reformulacao generica | A pipeline usa extracao de factos, prompts por formato, revisao de conformidade e validacao local. |
 | Usar LLM e prompts especificos | Usa modelo LLM via Groq com SDK OpenAI-compativel e ficheiros de prompt separados. |
-| APIs opcionais de publicacao | Nao foram integradas porque sao opcionais e exigem credenciais externas; em alternativa, o projeto exporta Markdown para publicacao manual. |
+| APIs opcionais de publicacao | Nao foram integradas porque sao opcionais e exigem credenciais externas; em alternativa, o agente envia os outputs e um Markdown final. |
 
 ## Diferencas entre outputs
 
@@ -59,34 +64,27 @@ Divide a informacao em 3 a 6 tweets numerados, com limite de 280 caracteres por 
 Newsletter:
 E o formato mais sintetico. Tem um titulo curto e um paragrafo pequeno pronto a entrar num email.
 
-## Pontos tecnicos fortes
+## Frase para defender a decisao tecnica
 
-- A fonte original nao e usada diretamente para todos os outputs; primeiro passa por extracao de factos.
-- Cada frase final deve estar suportada pelos factos extraidos.
-- Existe uma revisao automatica apos cada rascunho.
-- A newsletter tem uma reparacao extra quando fica demasiado longa.
-- A interface mostra os prompts usados, o que ajuda a explicar o funcionamento.
-- A validacao local verifica limites, estrutura, repeticoes, Markdown indevido, termos de portugues do Brasil e verbos fortes como "garante" ou "comprova".
-- Existem testes unitarios para a logica de validacao.
+Transformei o projeto num agente conversacional: em vez de ser apenas um site, o utilizador envia a fonte numa aplicacao/rede social e recebe automaticamente os conteudos. A pipeline por tras do agente primeiro extrai factos explicitos e so depois gera os formatos com prompts especificos. Isto reduz invencoes do modelo e garante que cada versao e adaptada ao canal, nao apenas reformulada. O Telegram e apenas uma demonstracao concreta do mesmo agente.
+
+O painel web em HTML/CSS/JavaScript nao e o produto principal. Ele e uma demo visual ligada ao mesmo agente, com backend Flask, para apresentar a pipeline de forma mais profissional sem expor a chave da API no browser.
 
 ## Como demonstrar na aula
 
-1. Abrir a aplicacao com `streamlit run app.py`.
-2. Escolher o exemplo de entrevista.
-3. Mostrar que existe apenas uma fonte de entrada.
-4. Clicar em `Gerar conteudos`.
-5. Abrir cada separador e comparar os formatos.
-6. Mostrar os factos extraidos no blog post.
-7. Mostrar o prompt carregado em cada separador.
-8. Mostrar a validacao rapida de cada output.
-9. Descarregar o Markdown final para provar que a pipeline gera um pacote completo de conteudo.
-
-## Frase para defender a decisao tecnica
-
-Usei uma arquitetura simples mas controlada: em vez de pedir ao modelo para escrever quatro textos diretamente a partir da fonte original, primeiro extraio factos explicitos e depois uso esses factos como base unica para cada formato. Isto reduz invencoes do modelo e ajuda a garantir que as versoes sao diferentes pela estrutura e pelo canal, nao apenas por sinonimos.
+1. Explicar que `conversation_agent.py` e o nucleo independente do canal.
+2. Executar o adaptador de exemplo com `python telegram_agent.py`.
+3. Abrir a conversa com o bot no Telegram.
+4. Enviar um texto ou uma nota de voz.
+5. Mostrar que o bot confirma a rececao da fonte.
+6. Mostrar os factos extraidos.
+7. Mostrar os quatro outputs enviados pelo bot.
+8. Abrir o ficheiro Markdown recebido.
+9. Opcionalmente, abrir o painel web com `python web_demo.py`.
+10. Explicar que o painel web e apenas demo/debug; o centro do projeto continua a ser o agente.
 
 ## Limites assumidos
 
-- A publicacao automatica em plataformas externas ficou fora do projeto porque o enunciado diz que e opcional e porque exige contas, tokens e aprovacoes de APIs.
+- A publicacao automatica em LinkedIn, X ou email ficou fora porque o enunciado diz que e opcional e porque exige contas, tokens e aprovacoes de APIs.
 - Como qualquer sistema com LLM, os resultados devem ser revistos por uma pessoa.
 - A validacao local nao prova verdade factual absoluta, mas deteta erros formais e ajuda a controlar os outputs.

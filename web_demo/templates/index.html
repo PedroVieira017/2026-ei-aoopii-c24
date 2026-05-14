@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Content Pipeline Agent</title>
+    <link rel="stylesheet" href="/static/styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Agente conversacional</p>
+        <h1>Content Pipeline Agent</h1>
+      </div>
+      <div class="status">
+        <span class="status-dot"></span>
+        Demo web ligada ao agente
+      </div>
+    </header>
+
+    <main class="workspace">
+      <section class="source-panel" aria-labelledby="source-title">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">Fonte unica</p>
+            <h2 id="source-title">Entrada</h2>
+          </div>
+          <button class="secondary-button" id="clearButton" type="button">Limpar</button>
+        </div>
+
+        <div class="example-row">
+          <label for="exampleSelect">Exemplo</label>
+          <select id="exampleSelect">
+            <option value="">Escolher exemplo</option>
+          </select>
+        </div>
+
+        <form id="generateForm">
+          <label for="sourceText">Texto, entrevista, nota de investigacao ou transcricao</label>
+          <textarea
+            id="sourceText"
+            name="source_text"
+            placeholder="Cola aqui uma unica fonte de conteudo..."
+          ></textarea>
+
+          <label for="sourceFile">Ficheiro opcional</label>
+          <input id="sourceFile" name="source_file" type="file" accept=".txt,.md,audio/*">
+
+          <div class="action-row">
+            <button class="primary-button" id="generateButton" type="submit">
+              Gerar conteudos
+            </button>
+            <span id="formHint">Texto, .txt, .md ou audio.</span>
+          </div>
+        </form>
+      </section>
+
+      <section class="result-panel" aria-labelledby="result-title">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">Outputs adaptados</p>
+            <h2 id="result-title">Resultados</h2>
+          </div>
+          <button class="secondary-button" id="downloadButton" type="button" disabled>
+            Exportar Markdown
+          </button>
+        </div>
+
+        <div class="pipeline-steps" aria-label="Pipeline">
+          <span>Fonte</span>
+          <span>Factos</span>
+          <span>Formatos</span>
+          <span>Revisao</span>
+        </div>
+
+        <div class="message" id="message">
+          Envia uma fonte para o agente gerar os formatos.
+        </div>
+
+        <div class="facts-panel hidden" id="factsPanel">
+          <div class="output-header">
+            <h3>Factos extraidos</h3>
+            <span id="sourceDescription"></span>
+          </div>
+          <pre id="factsOutput"></pre>
+        </div>
+
+        <div class="outputs-grid" id="outputsGrid"></div>
+      </section>
+    </main>
+
+    <template id="outputTemplate">
+      <article class="output-card">
+        <div class="output-header">
+          <h3></h3>
+          <span class="metric"></span>
+        </div>
+        <pre></pre>
+        <div class="checks"></div>
+      </article>
+    </template>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>

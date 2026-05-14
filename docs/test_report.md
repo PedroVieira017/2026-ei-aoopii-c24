@@ -41,7 +41,7 @@ Depois da bateria inicial foram feitas melhorias:
 
 - prompts de blog, LinkedIn, tweet thread e newsletter foram reforcados para exigir suporte direto em factos;
 - `compliance_review.txt` passou a tratar os factos como fonte completa e exaustiva;
-- foi adicionada uma etapa final de reparacao factual em `app.py`;
+- foi adicionada uma etapa final de reparacao factual na pipeline reutilizavel;
 - a validacao de repeticoes passou a ignorar o titulo em formatos com titulo, para reduzir falsos positivos;
 - foi definido `MODEL_MAX_TOKENS` para limitar outputs excessivos.
 
