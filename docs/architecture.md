@@ -4,7 +4,7 @@
 
 O agente recebe uma unica fonte de conteudo por conversa e produz varias versoes adaptadas a plataformas diferentes. O objetivo nao e apenas resumir ou reformular: cada output deve respeitar as convencoes do formato onde vai ser publicado.
 
-Neste projeto, o agente foi separado em duas partes: um nucleo conversacional independente do canal e adaptadores de interface. Isto significa que o mesmo agente pode ser ligado a uma aplicacao ou rede social com API, como WhatsApp, Telegram, Discord, Slack ou outro canal. Telegram e Discord sao adaptadores funcionais de exemplo. O painel Flask/HTML e apenas uma demo visual profissional para apresentacao e debug.
+Neste projeto, o agente foi separado em duas partes: um nucleo conversacional independente do canal e adaptadores de interface. Isto significa que o mesmo agente pode ser ligado a uma aplicacao ou rede social com API, como WhatsApp, Telegram, Discord, Slack ou outro canal. Telegram, Discord e Slack sao adaptadores funcionais de exemplo. O painel Flask/HTML e apenas uma demo visual profissional para apresentacao e debug.
 
 ## Fluxo de execucao
 
@@ -20,6 +20,22 @@ Neste projeto, o agente foi separado em duas partes: um nucleo conversacional in
 10. Cada texto passa por uma reparacao factual final, que remove frases sem suporte direto nos factos.
 11. A newsletter pode passar por uma reparacao extra se nao cumprir o formato curto.
 12. O agente responde no canal de conversa com os outputs e envia um ficheiro Markdown com o pacote completo.
+
+## Adaptadores conversacionais
+
+O nucleo `ConversationContentAgent` nao conhece Telegram, Discord, Slack nem Flask. Cada adaptador transforma eventos do canal numa fonte textual e depois chama o mesmo nucleo.
+
+```text
+Telegram Bot API
+Discord Bot API
+Slack Bolt / Socket Mode
+Painel Flask
+        -> ConversationContentAgent
+        -> content_pipeline.py
+        -> Groq/OpenAI-compatible API
+```
+
+Esta separacao e a principal defesa tecnica do projeto: trocar ou adicionar um canal nao obriga a reescrever a pipeline.
 
 ## Razao para a extracao de factos
 

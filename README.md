@@ -10,7 +10,7 @@ Desenvolver um agente conversacional que recebe uma unica fonte de conteudo e ge
 
 O projeto segue a ideia do enunciado: escrever uma vez e obter conteudo adequado ao local onde vai ser publicado, sem fazer apenas uma reformulacao generica.
 
-O modo principal do projeto e um agente conversacional para uma aplicacao/rede social. O nucleo do agente esta separado da interface, por isso pode ser ligado a canais como WhatsApp, Telegram, Discord, Slack ou outra plataforma com API. Neste projeto, Telegram e Discord ficam como adaptadores funcionais de exemplo. Existe tambem um painel web profissional em HTML/CSS/JS com backend Flask, usado apenas para demonstracao e debug.
+O modo principal do projeto e um agente conversacional para uma aplicacao/rede social. O nucleo do agente esta separado da interface, por isso pode ser ligado a canais como WhatsApp, Telegram, Discord, Slack ou outra plataforma com API. Neste projeto, Telegram, Discord e Slack ficam como adaptadores funcionais de exemplo. Existe tambem um painel web profissional em HTML/CSS/JS com backend Flask, usado apenas para demonstracao e debug.
 
 ## Input
 
@@ -66,6 +66,7 @@ Input unico
 - Telegram Bot API
 - Discord Bot API
 - discord.py
+- Slack Bolt for Python
 - Flask
 - HTML/CSS/JavaScript
 - OpenAI Python SDK
@@ -95,9 +96,11 @@ pip install -r requirements.txt
 GROQ_API_KEY=colocar_a_chave_aqui
 TELEGRAM_BOT_TOKEN=colocar_o_token_do_bot_aqui
 DISCORD_BOT_TOKEN=colocar_o_token_do_bot_aqui
+SLACK_BOT_TOKEN=colocar_o_token_xoxb_aqui
+SLACK_APP_TOKEN=colocar_o_token_xapp_aqui
 ```
 
-O `TELEGRAM_BOT_TOKEN` e obtido ao criar um bot no BotFather do Telegram. O `DISCORD_BOT_TOKEN` e obtido ao criar uma app/bot no Discord Developer Portal.
+O `TELEGRAM_BOT_TOKEN` e obtido ao criar um bot no BotFather do Telegram. O `DISCORD_BOT_TOKEN` e obtido ao criar uma app/bot no Discord Developer Portal. Os tokens `SLACK_BOT_TOKEN` e `SLACK_APP_TOKEN` sao obtidos ao criar uma app Slack com Socket Mode.
 
 4. Executar o adaptador Telegram de exemplo:
 
@@ -111,7 +114,13 @@ python telegram_agent.py
 python discord_agent.py
 ```
 
-6. Opcionalmente, executar o painel web profissional:
+6. Executar o adaptador Slack de exemplo:
+
+```powershell
+python slack_agent.py
+```
+
+7. Opcionalmente, executar o painel web profissional:
 
 ```powershell
 python web_demo.py
@@ -128,6 +137,7 @@ http://127.0.0.1:5000
 ```text
 telegram_agent.py              Agente conversacional para Telegram
 discord_agent.py               Agente conversacional para Discord
+slack_agent.py                 Agente conversacional para Slack
 conversation_agent.py          Nucleo do agente independente do canal
 content_pipeline.py            Pipeline reutilizavel de geracao
 web_demo.py                    Backend Flask do painel web
@@ -143,6 +153,7 @@ prompts/compliance_review.txt  Prompt de revisao de conformidade
 data/                          Exemplos de input para demonstracao
 docs/                          Documentacao tecnica e exemplo de outputs
 docs/discord_setup.md          Guia para configurar o bot Discord
+docs/slack_setup.md            Guia para configurar o bot Slack
 docs/presentation_guide.md     Guia curto para apresentar e defender o projeto
 docs/testing_guide.md          Guia rapido para testar o projeto
 tests/                         Testes unitarios da validacao local

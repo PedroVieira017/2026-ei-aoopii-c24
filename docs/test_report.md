@@ -69,7 +69,7 @@ Resultado observado:
 - tweet thread gerada: 6 tweets, numeracao valida e maior tweet com 107 caracteres;
 - newsletter gerada: corpo com 25 palavras e 1 frase.
 
-Tambem foram adicionados testes unitarios para a logica local de validacao em `tests/test_validation.py`, para o nucleo conversacional em `tests/test_conversation_agent.py`, para o adaptador Discord em `tests/test_discord_agent.py` e para a demo web em `tests/test_web_demo.py`.
+Tambem foram adicionados testes unitarios para a logica local de validacao em `tests/test_validation.py`, para o nucleo conversacional em `tests/test_conversation_agent.py`, para o adaptador Discord em `tests/test_discord_agent.py`, para o adaptador Slack em `tests/test_slack_agent.py` e para a demo web em `tests/test_web_demo.py`.
 
 Comando executado:
 
@@ -80,7 +80,7 @@ python -m unittest discover -s tests
 Resultado:
 
 ```text
-Ran 18 tests
+Ran 26 tests
 OK
 ```
 
@@ -98,6 +98,10 @@ Os testes cobrem:
 - normalizacao de extensoes no adaptador Discord;
 - remocao do comando `!pipeline`;
 - remocao de mencoes ao bot no texto fonte;
+- normalizacao de extensoes no adaptador Slack;
+- limpeza de texto Slack com mencoes e entidades HTML;
+- decisao de processar DMs, mencoes e comandos `!pipeline` no Slack;
+- rejeicao de mensagens de bot no adaptador Slack;
 - carregamento da pagina web;
 - endpoint de exemplos;
 - rejeicao de pedidos sem input;

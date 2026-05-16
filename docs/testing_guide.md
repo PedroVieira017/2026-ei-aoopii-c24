@@ -20,6 +20,7 @@ Estes testes nao chamam a API da Groq. Servem para confirmar:
 - pagina web e endpoints basicos;
 - nucleo do agente conversacional;
 - helpers do adaptador Discord;
+- helpers do adaptador Slack;
 - rejeicao de inputs invalidos antes de criar cliente LLM.
 
 ## 2. Testar painel web sem gastar API
@@ -129,7 +130,45 @@ No Discord:
 
 3. Confirmar que o bot responde com factos, os quatro formatos e o Markdown final.
 
-## 6. Parar servidores
+## 6. Testar o agente Slack
+
+Garantir que o `.env` tem:
+
+```text
+GROQ_API_KEY=colocar_a_chave_aqui
+SLACK_BOT_TOKEN=colocar_o_token_xoxb_aqui
+SLACK_APP_TOKEN=colocar_o_token_xapp_aqui
+```
+
+No Slack API Apps:
+
+1. Criar uma app Slack.
+2. Ativar `Socket Mode`.
+3. Criar um app-level token com `connections:write`.
+4. Adicionar scopes do bot: `chat:write`, `app_mentions:read`, `im:history`, `im:write`, `files:read`, `files:write`, `commands` e, para canais publicos, `channels:history`.
+5. Ativar eventos `app_mention`, `message.im` e, se quiseres usar em canais, `message.channels`.
+6. Instalar ou reinstalar a app no workspace.
+
+Executar:
+
+```powershell
+python slack_agent.py
+```
+
+No Slack:
+
+1. Enviar `!ping` em DM ao bot.
+2. Enviar:
+
+```text
+!pipeline Uma pequena equipa de estudantes testou uma aplicacao de estudo durante duas semanas. O teste envolveu 12 participantes. No final, 9 participantes afirmaram que a aplicacao ajudou a organizar melhor as sessoes de estudo. A equipa ainda nao avaliou impacto nas notas.
+```
+
+3. Confirmar que o bot responde com factos, os quatro formatos e o Markdown final.
+
+Mais detalhes estao em `docs/slack_setup.md`.
+
+## 7. Parar servidores
 
 No terminal onde o servidor esta a correr, usar:
 
